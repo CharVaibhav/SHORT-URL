@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+</head>
+<body>
+   <h1>URL SHORTENER</h1>
+   <% if (locals.id) { %>
+    <p>URL Generated: <a href="http://localhost:3001/url/<%= id %>">http://localhost:3001/url/<%= id %></a></p>
+   <% } %>
+   <form method="POST" action="/url">
+    <label>Enter your original URL</label><br><br>
+    <input type="text" name="url" placeholder="http://example.com" required><br><br><br>
+    <button type="submit">Generate</button>
+   </form>
+   <% if (locals.urls) { %>
+    <table border="1" style="margin: 20px auto; color: white;">
+        <thead>
+            <tr>
+                <th>S. NO</th>
+                <th>Short ID</th>
+                <th>Redirect URL</th>
+                <th>Clicks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% urls.forEach((url, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= url.shortId %></td>
+                <td><a href="<%= url.redirectURL %>" target="_blank" style="color: #00ff00;"><%= url.redirectURL %></a></td>
+                <td><%= url.visitedHistory.length %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+   <% } %>
+</body>
+<style>
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        background-color: #000000;
+        color: #ffffff;
+        text-align: center;
+    }
+    a {
+        color: #00ff00;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    table {
+        width: 80%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+</html>
