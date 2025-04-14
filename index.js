@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
 app.use(cookieParser());
 
-app.use('/url', restrictToLoggedinUserOnly, urlRouter);
+app.use('/url',restrictToLoggedinUserOnly , urlRouter);
 app.use('/',checkAuth, staticRouter);
 app.use('/signup', staticRouter);
 app.use('/user', userRoute);

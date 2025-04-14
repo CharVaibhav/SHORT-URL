@@ -24,9 +24,9 @@ async function login(req, res) {
         if (!foundUser) {
             return res.render("login", { error: "Invalid credentials" });
         }
-        const sessionId = uuidv4(); // Generate a unique session ID
-        setUser(sessionId, foundUser); // Pass the logged-in user, not the model
-        res.cookie("uid", sessionId);
+        
+        const token = setUser(foundUser); // Pass the logged-in user, not the model
+        res.cookie("uid", token);
         return res.redirect("/"); // Redirect to home after successful login
     } catch (error) {
         console.error("Error during login:", error);
