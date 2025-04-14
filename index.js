@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const {connectMongoDB}= require('./connect');
-const { restrictToLoggedinUserOnly, checkAuth } = require("./middleware/auth");
+const {checkForAuthentication, restrictTo } = require("./middleware/auth");
 
 const app = express();
 const port = 3001;
@@ -19,9 +19,10 @@ connectMongoDB('mongodb://localhost:27017/shorturl')
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
 app.use(cookieParser());
+app.use(checkForAuthentication)
 
-app.use('/url',restrictToLoggedinUserOnly , urlRouter);
-app.use('/',checkAuth, staticRouter);
+app.use('/url' ,restrictTo("NORMAL", "ADMIN"), urlRouter);
+app.use('/', staticRouter);
 app.use('/signup', staticRouter);
 app.use('/user', userRoute);
 

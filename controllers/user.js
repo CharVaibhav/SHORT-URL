@@ -26,7 +26,7 @@ async function login(req, res) {
         }
         
         const token = setUser(foundUser); // Pass the logged-in user, not the model
-        res.cookie("uid", token);
+        res.cookie("token", token);
         return res.redirect("/"); // Redirect to home after successful login
     } catch (error) {
         console.error("Error during login:", error);
